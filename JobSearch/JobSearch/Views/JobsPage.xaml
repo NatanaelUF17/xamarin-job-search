@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:helpers="clr-namespace:JobSearch.Helpers"
+             xmlns:services="clr-namespace:JobSearch.Services"
+             mc:Ignorable="d"
+             Title="{Binding Title}"
+             x:Class="JobSearch.Views.JobsPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="MatchingColor" TargetType="{x:Type View}">
+                <Setter Property = "BackgroundColor" Value="{Binding Team.BackgroundColor}"/>
+            </Style>
+            <DataTemplate x:Key="jobSearchHandlerItemTemplate">
+                <ContentView>
+                    <Grid Style="{StaticResource MatchingColor}"
+                      RowDefinitions="Auto, Auto, Auto">
+                       <Label Text="{Binding Title}"
+                              Grid.Row="0"/>
+                       <Label Text="{Binding Team.Name, StringFormat='Team {0}'}"
+                              Grid.Row="1"
+                              FontAttributes="Italic"/>
+                    </Grid>
+                </ContentView>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Shell.SearchHandler>
+        <services:JobSearchHandler Placeholder="Enter search tag"
+                                   ShowsResults="True"
+                                   ItemTemplate="{StaticResource jobSearchHandlerItemTemplate}"/>
+    </Shell.SearchHandler>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="ItemsListView"
+                      Style="{StaticResource ListViewStyle}"
+                      ItemsSource="{Binding Jobs}"
+                      RefreshCommand="{Binding LoadJobsCommand}"
+                      IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                      CachingStrategy="RecycleElement"
+                      ItemSelected="OnItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame CornerRadius="10" Padding="10" Margin="10" Style="{StaticResource MatchingColor}">
+                                <StackLayout Padding="10" >
+                                    <Label Text="{Binding Team.Name, StringFormat='Team {0}'}" FontAttributes="Italic"/>
+                                    <Label Text="{Binding Title}" 
+                                           Style="{DynamicResource ListItemTextStyle}"/>
+                                    <Label Text="{Binding Description}" 
+                                           Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

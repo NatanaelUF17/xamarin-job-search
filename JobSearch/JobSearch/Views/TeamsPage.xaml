@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="{Binding Title}"
+             x:Class="JobSearch.Views.TeamsPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="ItemsListView"
+                      Style="{StaticResource ListViewStyle}"
+                      ItemsSource="{Binding Teams}"
+                      RefreshCommand="{Binding LoadTeamsCommand}"
+                      IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                      CachingStrategy="RecycleElement"
+                      ItemSelected="OnItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame CornerRadius="10" Padding="10" Margin="10" BackgroundColor="{Binding BackgroundColor}">
+                                <StackLayout Padding="10" >
+                                    <Label Text="{Binding Name}" 
+                                           Style="{DynamicResource ListItemTextStyle}"/>
+                                    <Label Text="{Binding Location}" 
+                                           Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

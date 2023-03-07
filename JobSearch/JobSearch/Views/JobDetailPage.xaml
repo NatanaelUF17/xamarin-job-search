@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="{Binding Title}"
+             Visual="Material"
+             BackgroundColor="{StaticResource BackGroundColor}"
+             x:Class="JobSearch.Views.JobDetailPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="labelDataStyle" TargetType="Label">
+                <Setter Property = "TextColor" Value="Black" />
+                <Setter Property = "FontSize"  Value="Medium" />
+                <Setter Property = "Margin"  Value="0,-4, 0, 0" />
+            </Style>
+            <Style x:Key="labelHeaderStyle" TargetType="Label">
+                <Setter Property = "Margin"  Value="0, 10, 0, 0" />
+                <Setter Property = "TextColor" Value="{Binding Job.Team.LabelColor}" />
+                <Setter Property = "FontSize"  Value="Subtitle" />
+            </Style>
+            <Style x:Key="MatchingColor" TargetType="{x:Type View}">
+                <Setter Property = "BackgroundColor" Value="{Binding Job.Team.BackgroundColor}"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Frame CornerRadius="30" Style="{StaticResource MatchingColor}" Margin="10,100,10,100">
+            <ScrollView>
+                <StackLayout>
+                    <Label Text="Description" Style="{StaticResource labelHeaderStyle}"/>
+                    <Label Text="{Binding Job.Description}" Style="{StaticResource labelDataStyle}"/>
+                    <Label Text="Requirements" Style="{StaticResource labelHeaderStyle}"/>
+                    <Label Text="{Binding Job.Requirements}" Style="{StaticResource labelDataStyle}"/>
+                    <Label Text="Keywords" Style="{StaticResource labelHeaderStyle}"/>
+                    <Label Text="{Binding Job.FormattedTags}" Style="{StaticResource labelDataStyle}"/>
+                    <Label Text="Contact" Style="{StaticResource labelHeaderStyle}"/>
+                    <Label Style="{StaticResource labelDataStyle}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding Job.Team.ContactName}"/>
+                                <Span Text=" at Team "/>
+                                <Span Text="{Binding Job.Team.Name}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label Text="{Binding Job.Team.PhoneNumber}" Style="{StaticResource labelDataStyle}"/>
+                    <Label Text="{Binding Job.Team.EmailAddress}" Style="{StaticResource labelDataStyle}"/>
+                    <Button Text="{Binding Job.Team.ContactName, StringFormat='Email {0}'}" Command="{Binding SendEmailCommand}" Margin="0,10,0,0"/>
+                    <Button Text="{Binding Job.Team.ContactName, StringFormat='Call {0}'}" Command="{Binding PhoneCallCommand}"/>
+                </StackLayout>
+            </ScrollView>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>

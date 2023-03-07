@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:helpers="clr-namespace:JobSearch.Helpers"
+             mc:Ignorable="d"
+             Title="{Binding Title, StringFormat='Team {0}'}"
+             Visual="Material"
+             x:Class="JobSearch.Views.TeamDetailPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helpers:ImageResourceConverter x:Key="imageResourceCvt" />
+
+            <Style x:Key="labelDataStyle" TargetType="Label">
+                <Setter Property = "TextColor" Value="Black" />
+                <Setter Property = "FontSize"  Value="Medium" />
+                <Setter Property = "Margin"  Value="0,-4, 0, 10" />
+            </Style>
+            <Style x:Key="labelHeaderStyle" TargetType="Label">
+                <Setter Property = "TextColor" Value="{Binding Team.LabelColor}" />
+                <Setter Property = "FontSize"  Value="Subtitle" />
+            </Style>
+            <Style x:Key="MatchingColor" TargetType="{x:Type View}">
+                <Setter Property = "BackgroundColor" Value="{Binding Team.BackgroundColor}"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Style="{StaticResource MatchingColor}">
+            <Image HeightRequest="200" Aspect="AspectFill"
+                   Source="{Binding Team.ImageUrl, Converter={StaticResource imageResourceCvt}}" />
+            <Frame CornerRadius="50" Style="{StaticResource MatchingColor}" Margin="0,-50,0,-10" HasShadow="False">
+                <StackLayout Padding="10,0,0,0">
+                    <Label Text="Location:" Style="{StaticResource labelHeaderStyle}"/>
+                    <Label Text="{Binding Team.Location, Mode=TwoWay}" Style="{StaticResource labelDataStyle}"/>
+                    <Label Text="Contact" Style="{StaticResource labelHeaderStyle}"/>
+                    <Label Text="{Binding Team.ContactName}" Style="{StaticResource labelDataStyle}" />
+                    <Label Text="Email" Style="{StaticResource labelHeaderStyle}"/>
+                    <Label Text="{Binding Team.EmailAddress}" Style="{StaticResource labelDataStyle}" />
+                    <Label Text="Phone" Style="{StaticResource labelHeaderStyle}"/>
+                    <Label Text="{Binding Team.PhoneNumber}" Style="{StaticResource labelDataStyle}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Text="Email" Command="{Binding SendEmailCommand}"/>
+                        <Button Grid.Column="1" Text="Call" Command="{Binding PhoneCallCommand}"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

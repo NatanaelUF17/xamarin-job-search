@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:JobSearch.Views"
+       xmlns:icons="clr-namespace:JobSearch.Images"
+       Title="JobSearch"
+       FlyoutBackgroundColor="{StaticResource BackGroundColor}"
+       FlyoutHeaderBehavior="CollapseOnScroll"
+       x:Class="JobSearch.AppShell">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+            </Style>
+            <Style x:Key="kShell"
+                   TargetType="Element"
+                   BasedOn="{StaticResource BaseStyle}">
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <Shell.FlyoutHeader>
+        <Grid HeightRequest="100" 
+            BackgroundColor="{DynamicResource FlyoutHeaderBackGroundColor}">
+            <Image Source="k_l_logo"
+                Aspect="AspectFit"
+                HeightRequest="100"
+                HorizontalOptions="Center"/>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="0.2*, 0.8*">
+                <Image Source="{Binding FlyoutIcon}"
+                       Margin="5"
+                       HeightRequest="45"/>
+                <Label Grid.Column="1"
+                       Text="{Binding Title}"
+                       FontAttributes="Italic"
+                       VerticalTextAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="0.2*, 0.8*">
+                <Image Source="{Binding Icon}"
+                       Margin="5"
+                       HeightRequest="45"/>
+                <Label Grid.Column="1"
+                       Text="{Binding Text}"
+                       FontAttributes="Italic"
+                       VerticalTextAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
+
+    <FlyoutItem Route="kandl" Style="{StaticResource kShell}"
+                Title="Home">
+        <FlyoutItem.FlyoutIcon>
+            <FontImageSource Color="Black"
+                             FontFamily="{DynamicResource MaterialFontFamily}"
+                             Glyph="{x:Static icons:MaterialDesingIconFont.Home}"/>
+        </FlyoutItem.FlyoutIcon>
+        <ShellContent ContentTemplate="{DataTemplate local:HomePage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Route="jobs" Style="{StaticResource kShell}"
+                Title="Jobs">
+        <FlyoutItem.FlyoutIcon>
+            <FontImageSource Color="Black"
+                             FontFamily="{DynamicResource MaterialFontFamily}"
+                             Glyph="{x:Static icons:MaterialDesingIconFont.FileAccount}"/>
+        </FlyoutItem.FlyoutIcon>
+        <ShellContent ContentTemplate="{DataTemplate local:JobsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Route="teams" Style="{StaticResource kShell}"
+                Title="Teams">
+        <FlyoutItem.FlyoutIcon>
+            <FontImageSource Color="Black"
+                             FontFamily="{DynamicResource MaterialFontFamily}"
+                             Glyph="{x:Static icons:MaterialDesingIconFont.MapMarker}"/>
+        </FlyoutItem.FlyoutIcon>
+        <ShellContent ContentTemplate="{DataTemplate local:TeamsPage}" />
+    </FlyoutItem>
+    
+    <MenuItem Clicked="RateApp_Click" Text="Rate this app">
+        <MenuItem.IconImageSource>
+            <FontImageSource Color="#A67C00"
+                             FontFamily="{DynamicResource MaterialFontFamily}"
+                             Glyph="{x:Static icons:MaterialDesingIconFont.Star}"/>
+        </MenuItem.IconImageSource>
+    </MenuItem>
+    <MenuItem Clicked="Help_Click" Text="Help">
+        <MenuItem.IconImageSource>
+            <FontImageSource Color="Black"
+                             FontFamily="{DynamicResource MaterialFontFamily}"
+                             Glyph="{x:Static icons:MaterialDesingIconFont.HelpCircleOutline}"/>
+        </MenuItem.IconImageSource>
+    </MenuItem>
+    <MenuItem Clicked="Privacy_Click" Text="Privacy policy">
+        <MenuItem.IconImageSource>
+            <FontImageSource Color="Black"
+                             FontFamily="{DynamicResource MaterialFontFamily}"
+                             Glyph="{x:Static icons:MaterialDesingIconFont.ShieldAccountOutline}"/>
+        </MenuItem.IconImageSource>
+    </MenuItem>
+    <MenuItem Clicked="Tos_Click" Text="Terms of Use">
+        <MenuItem.IconImageSource>
+            <FontImageSource Color="Black"
+                             FontFamily="{DynamicResource MaterialFontFamily}"
+                             Glyph="{x:Static icons:MaterialDesingIconFont.FileDocumentBoxCheckOutline}"/>
+        </MenuItem.IconImageSource>
+    </MenuItem>
+
+</Shell>
+
